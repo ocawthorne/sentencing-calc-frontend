@@ -14,17 +14,43 @@
       <!--TODO List of defendants belonging to the current Session ID go here in a href tags-->
       <br><br>
       ><p>Options</p>
-      <a href='#' class="option"> New Defendant</a> <!--TODO When clicked, ensure that this removes #display from the DOM and includes #form-->
-      <a href='#' class="option"> New Session</a> <!--TODO Erase current session and start new one with SecureRandom.hex (worry about this later)-->
+      <a href='#' class="option" id="new-defendant"> New Defendant</a> <!--TODO When clicked, ensure that this removes #display from the DOM and includes #form-->
+      <a href='#' class="option" id="new-session"> New Session</a> <!--TODO Erase current session and start new one with SecureRandom.hex (worry about this later). ALSO, warning before new session-->
     </div>
 
      <!-- Main Content -->
      
     <div class="main">
       <h1>Sentencing Calculator</h1>
+      <p id="session_id"></p>
+      <br>
+      
+      <div id="new-defendant-form-container" style="display: block;"> <!--TODO Build new defendant form-->
+        <h2>New Calculation</h2>
+        <form class="add-defendant-form">
+          <label for="name">Name of the Defendant:</label>
+          <input type="text" name="name" value required><br><br>
 
-      <div class="form"> <!--TODO Build new defendant form-->
+          <label for="count" class="count">Count 1:</label>
+          <input type="text" name="count_1" placeholder="offence" value required>
+          <input type="number" name="years_1" placeholder="years" class="num-field">
+          <input type="number" name="months_1" placeholder="months" class="num-field">
+          <input type="number" name="days_1" placeholder="days" class="num-field"><br><br>
+          <button id="new-count">Add Count</button><br><br>
 
+          <label for="consecutive">Consecutive</label>
+          <input type="radio" name="consec_concur_1" value required>
+          <label for="concurrent">Concurrent</label>
+          <input type="radio" name="consec_concur_1" value required><br><br>
+
+          <label for="discount">Discount:</label>
+          <input type="number" name="discount" placeholder="In %, for example 33.3" value required><br><br>
+
+          <label for="sentencing">Date of sentencing:</label>
+          <input type="date" name="date" value required><br><br><br>
+
+          <input type="submit" value="Calculate">
+        </form>
       </div>
 
       <div class="display"> <!--TODO Build a display for when an existing defendant has been clicked-->

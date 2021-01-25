@@ -1,12 +1,21 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 2rem 1rem;
+}
+
+#new-defendant-form-container input.num-field {
+  width: 4%;
+}
+
 .sidebar {
-   height: 100%; /* Full-height: remove this if you want "auto" height */
-   width: 200px; /* Set the width of the sidebar */
-   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-   z-index: 1; /* Stay on top */
-   top: 0; /* Stay at the top */
+   height: 100%;
+   width: 200px;
+   position: fixed;
+   z-index: 1;
+   top: 0;
    left: 0;
-   background-color: #111; /* Black */
-   overflow-x: hidden; /* Disable horizontal scroll */
+   background-color: #111;
+   overflow-x: hidden;
    padding-top: 20px;
  }
  
@@ -14,7 +23,7 @@
  .sidebar a {
    padding: 6px 8px 6px 16px;
    text-decoration: none;
-   font-size: 16px;
+   font-size: 14px;
    color: #818181;
    display: block;
  }
@@ -22,7 +31,7 @@
  .sidebar p {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 14px;
   color: #ddfaff;
   display: inline-block;
 }
@@ -31,13 +40,13 @@
    padding: 6px 30px;
  }
  
- /* When you mouse over the navigation links, change their color */
  .sidebar a:hover {
    color: #f1f1f1;
  }
  
  /* Style page content */
  .main {
-   margin-left: 220px; /* Same as the width of the sidebar */
+   margin-left: 220px;
    padding: 0px 10px;
+   font-size: 14px
  }

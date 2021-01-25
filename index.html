@@ -31,12 +31,14 @@
           <label for="name">Name of the Defendant:</label>
           <input type="text" name="name" value required><br><br>
 
-          <label for="count" class="count">Count 1:</label>
-          <input type="text" name="count_1" placeholder="offence" value required>
-          <input type="number" name="years_1" placeholder="years" class="num-field">
-          <input type="number" name="months_1" placeholder="months" class="num-field">
-          <input type="number" name="days_1" placeholder="days" class="num-field"><br><br>
-          <button id="new-count">Add Count</button><br><br>
+          <div id="counts">
+            <label for="count" class="count">Count 1:</label>
+            <input type="text" name="count_1" placeholder="offence" value required>
+            <input type="number" name="years_1" placeholder="years" class="num-field">
+            <input type="number" name="months_1" placeholder="months" class="num-field">
+            <input type="number" name="days_1" placeholder="days" class="num-field"><br><br>
+          </div>
+          <button id="new-count" type="button">Add Count</button><br><br>
 
           <label for="consecutive">Consecutive</label>
           <input type="radio" name="consec_concur_1" value required>

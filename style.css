@@ -4,7 +4,24 @@ body {
 }
 
 #new-defendant-form-container input.num-field {
-  width: 4%;
+  width: 6%;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed
+}
+
+.error {
+  color: red;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 10px;
 }
 
 .sidebar {

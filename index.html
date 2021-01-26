@@ -26,7 +26,7 @@
       <br>
       
       <div id="new-defendant-form-container" style="display: block;">
-        
+
         <h2>New Calculation</h2>
         <form class="add-defendant-form">
           <label for="name">Name of the Defendant:</label>
@@ -35,22 +35,45 @@
           <div id="counts">
             <label for="count" class="count">Count 1:</label>
             <input type="text" name="count_1" placeholder="offence" value required>
-            <input type="number" name="years_1" placeholder="years" class="num-field years">
-            <input type="number" name="months_1" placeholder="months" class="num-field months">
-            <input type="number" name="days_1" placeholder="days" class="num-field days"><br><br>
+            <input type="number" min="0" name="years_1" placeholder="years" class="num-field years" onkeyup="calculateSentence()">
+            <input type="number" min="0" name="months_1" placeholder="months" class="num-field months" onkeyup="calculateSentence()">
+            <input type="number" min="0" name="days_1" placeholder="days" class="num-field days" onkeyup="calculateSentence()"><br><br>
           </div>
-          <button id="new-count" type="button">Add Count</button><br><br>
+          <button class="new-count" type="button">Add Count</button><br><br>
 
-          <label for="consecutive">Consecutive</label>
-          <input type="radio" name="consec_concur_1" value required>
-          <label for="concurrent">Concurrent</label>
-          <input type="radio" name="consec_concur_1" value required><br><br>
+          <div id="concurrent-question" style="display: none">
+            <label for="concurrent">All Concurrent?</label>
+            <input type="checkbox" id="concurrent-check"><br><br>
+          </div>
+
+          <div id="concurrency-table" style="display: none">
+            <table id="con-tab" style="display: block">
+            <p><b>Concurrency Table</b></p> <!--TODO Add an info circle later. This allows you to select which sentences are concurrent with another.-->
+            <tr class="table-headers">
+              <th class="space">&nbsp;</th>
+              <th id="col1">1</th>
+              <!--Here, columns <th> need to be appended for every count added.-->
+            </tr>
+            <tr id="row1">
+              <th>1</th>
+              <td>-</td>
+              <!--
+                Here, there will be the same number of <td>s as there are counts.
+                A checkbox will be added ONLY IF the col-number is greater than the row-number.
+              -->
+            </tr>
+            </table>
+          </div>
+          <br>
 
           <label for="discount">Discount:</label>
-          <input type="number" name="discount" placeholder="In %, for example 33.3" value required><br><br>
+          <input type="number" name="discount" placeholder="e.g. 25, 33.3" class="num-field" onkeyup="calculateSentence()" value required> %<br><br>
 
           <label for="sentencing">Date of sentencing:</label>
           <input type="date" name="date" value required><br><br><br>
+
+          <h3>Total Sentence:</h3>
+          <p id="sentence-comp">0 months, 0 days</p>
 
           <input type="submit" value="Save" onclick="save()">
 

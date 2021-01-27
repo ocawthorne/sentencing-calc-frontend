@@ -1,4 +1,6 @@
 const app = new App()
+let EXCLUDED = []
+let WINPAIRS
 
 function newDefendant() {
    let x = document.getElementById('new-defendant-form-container')
@@ -50,6 +52,7 @@ document.getElementsByClassName('new-count')[0].addEventListener('click', functi
 })
 
 document.getElementById('concurrent-check').addEventListener('click', displayConcurrencyTable)
+document.getElementById('concurrent-check').addEventListener('click', gordonEvaluator)
 document.querySelector('.new-count').addEventListener('click', displayConcurrencyTable)
 
 
@@ -69,11 +72,25 @@ function gordonEvaluator() {
       if (pair.checked) pairs.push(Array.from(pair.classList).slice(1))
    })
    if (pairs.length > 1) {
+      let chainPairs = []
       document.getElementById('chain-warning').style.display = "none"
+      let EXCLUDED = []
       for(let i=0; i<pairs.length; i++) {
          for(let j=0; j<pairs.length; j++) {
             if (pairs[i][1] === pairs[j][0]) {
                dupeBool = true
+               chainPairs.push([pairs[i], pairs[j]])
+
+               let arr = [
+                  document.querySelector(`.gordon-num.years.${pairs[i][0]}`).value * 360 + document.querySelector(`.gordon-num.months.${pairs[i][0]}`).value * 12 + document.querySelector(`.gordon-num.days.${pairs[i][0]}`).value * 1,
+                  document.querySelector(`.gordon-num.years.${pairs[i][1]}`).value * 360 + document.querySelector(`.gordon-num.months.${pairs[i][1]}`).value * 12 + document.querySelector(`.gordon-num.days.${pairs[i][1]}`).value * 1,
+                  document.querySelector(`.gordon-num.years.${pairs[j][1]}`).value * 360 + document.querySelector(`.gordon-num.months.${pairs[j][1]}`).value * 12 + document.querySelector(`.gordon-num.days.${pairs[j][1]}`).value * 1
+               ]
+
+               countArr = [pairs[i][0], pairs[i][1], pairs[j][1]]
+               EXCLUDED.push(pairs[i][0], pairs[i][1], pairs[j][1])
+               EXCLUDED = [...new Set(EXCLUDED)] // Removes duplicates
+               WINPAIRS = countArr[arr.indexOf(Math.max(arr[0],arr[1],arr[2]))]
             }
          }
       }

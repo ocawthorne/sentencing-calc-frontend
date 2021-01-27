@@ -32,12 +32,10 @@ document.getElementsByClassName('new-count')[0].addEventListener('click', functi
    row = document.createElement('tr')
    row.id = `row${countNum+1}`
    row.innerHTML = `<th>${countNum+1}</th>`+`<td>-</td>`.repeat(countNum+1)
-   // if (countNum > 0) {
-      for (let i=1; i<countNum+1; i++) {
-         prevRow = document.getElementById(`row${i}`)
-         prevRow.innerHTML += `<td><input type="checkbox" class="row-${i} col-${i+1}" onclick="calculateSentence()"></td>`
-      }
-   // }
+   for (let i=1; i<countNum+1; i++) {
+      prevRow = document.getElementById(`row${i}`)
+      prevRow.innerHTML += `<td><input type="checkbox" class="row-${i} col-${i+1}" onclick="calculateSentence()"></td>`
+   }
    table.appendChild(row)
 
    // Add new column

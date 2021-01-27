@@ -21,9 +21,9 @@ document.getElementsByClassName('new-count')[0].addEventListener('click', functi
    el.innerHTML = `
    <label for="count" class="count">Count ${countNum+1}:</label>
    <input type="text" name="count_${countNum+1}" placeholder="offence" value required>
-   <input type="number" min="0" name="years_${countNum+1}" placeholder="years" class="num-field years" onkeyup="calculateSentence()">
-   <input type="number" min="0" name="months_${countNum+1}" placeholder="months" class="num-field months" onkeyup="calculateSentence()">
-   <input type="number" min="0" name="days_${countNum+1}" placeholder="days" class="num-field days" onkeyup="calculateSentence()"><br><br> 
+   <input type="number" min="0" name="years_${countNum+1}" placeholder="years" class="gordon-num years count-${countNum+1}" onkeyup="calculateSentence()">
+   <input type="number" min="0" name="months_${countNum+1}" placeholder="months" class="gordon-num months count-${countNum+1}" onkeyup="calculateSentence()">
+   <input type="number" min="0" name="days_${countNum+1}" placeholder="days" class="gordon-num days count-${countNum+1}" onkeyup="calculateSentence()"><br><br> 
    `
    //TODO needs a delete button for superfluous counts
    nodes[nodes.length-1].parentNode.insertBefore(el, nodes.nextSibling)
@@ -36,7 +36,7 @@ document.getElementsByClassName('new-count')[0].addEventListener('click', functi
    row.innerHTML = `<th>${countNum+1}</th>`+`<td>-</td>`.repeat(countNum+1)
    for (let i=1; i<countNum+1; i++) {
       prevRow = document.getElementById(`row${i}`)
-      prevRow.innerHTML += `<td><input type="checkbox" class="row-${i} col-${i+1}" onclick="calculateSentence()"></td>`
+      prevRow.innerHTML += `<td><input type="checkbox" class="gordon count-${i} count-${nodes.length+1}" onclick="calculateSentence()"></td>`
    }
    table.appendChild(row)
 
@@ -45,13 +45,13 @@ document.getElementsByClassName('new-count')[0].addEventListener('click', functi
    let text = `<th>${countNum+1}</th>`
    header.innerHTML = text
    table.firstElementChild.appendChild(header)
-
+   
    document.getElementById('concurrent-question').style.display = "block"
-
 })
 
 document.getElementById('concurrent-check').addEventListener('click', displayConcurrencyTable)
 document.querySelector('.new-count').addEventListener('click', displayConcurrencyTable)
+
 
 function displayConcurrencyTable() {
    let x = document.getElementById('concurrency-table')
@@ -62,29 +62,66 @@ function displayConcurrencyTable() {
    }
 }
 
+function gordonEvaluator() {
+   let pairs = []
+   let dupeBool = false
+   Array.from(document.querySelectorAll('.gordon')).forEach(pair => {
+      if (pair.checked) pairs.push(Array.from(pair.classList).slice(1))
+   })
+   if (pairs.length > 1) {
+      document.getElementById('chain-warning').style.display = "none"
+      for(let i=0; i<pairs.length; i++) {
+         for(let j=0; j<pairs.length; j++) {
+            if (pairs[i][1] === pairs[j][0]) {
+               dupeBool = true
+            }
+         }
+      }
+   }
+   return {
+      pairs: pairs,
+      chaining: dupeBool
+   }
+}
+
 function calculateSentence() {
-   let years = months = days = 0
-   // Object.entries(document.getElementsByClassName('years')).forEach(function(el) {
+   let days = 0
+   if (gordonEvaluator().pairs.length > 0) {
+      days = gordonEvaluator().days
+   }
    document.querySelectorAll('.years,.months,.days').forEach(function(el) {
       let val = parseInt(el.value)
       switch(el.placeholder) {
          case "years":
-            if (!isNaN(val)) years += val
+            if (!isNaN(val)) days += val * 360
             break
          case "months":
-            if (!isNaN(val)) months += val
+            if (!isNaN(val)) days += val * 12
             break
          case "days":
             if (!isNaN(val)) days += val
       }
    })
-   document.getElementById('sentence-comp').innerText = convertToMD(years, months, days)
+
+   let warning = document.getElementById('chain-warning')
+
+   if (gordonEvaluator().chaining) {
+      warning.style.display = "block"
+      days = 0
+   } else {
+      warning.style.display = "none"
+   }
+   
+   document.getElementById('sentence-comp').innerText = convertToMD(days)
 }
 
-function convertToMD(years, months, days) { // Based on 30-day months
-   daysDisp = days % 30
-   monthR = Math.floor(days / 30)
-   monthsDisp = (months + monthR + years*12)
+function convertToMD(days) { // Based on 30-day months, bfwd PRE-DISCOUNT
+   let discount = parseInt(document.getElementById('discount'))
+   if (isNaN(discount)) discount = 0
+
+   let newDays = Math.floor(days*discount)
+   let daysDisp = newDays % 30 //FIXME Inaccurate computation, needs concurrency computations first from gordonEvaluator()
+   let monthsDisp = Math.floor(newDays / 30)
 
    return `${monthsDisp} months, ${daysDisp} days`
 }

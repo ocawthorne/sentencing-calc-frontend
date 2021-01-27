@@ -35,9 +35,9 @@
           <div id="counts">
             <label for="count" class="count">Count 1:</label>
             <input type="text" name="count_1" placeholder="offence" value required>
-            <input type="number" min="0" name="years_1" placeholder="years" class="num-field years" onkeyup="calculateSentence()">
-            <input type="number" min="0" name="months_1" placeholder="months" class="num-field months" onkeyup="calculateSentence()">
-            <input type="number" min="0" name="days_1" placeholder="days" class="num-field days" onkeyup="calculateSentence()"><br><br>
+            <input type="number" min="0" name="years_1" placeholder="years" class="gordon-num years count-1" onkeyup="calculateSentence()">
+            <input type="number" min="0" name="months_1" placeholder="months" class="gordon-num months count-1" onkeyup="calculateSentence()">
+            <input type="number" min="0" name="days_1" placeholder="days" class="gordon-num days count-1" onkeyup="calculateSentence()"><br><br>
           </div>
           <button class="new-count" type="button">Add Count</button><br><br>
 
@@ -65,10 +65,12 @@
             </tr>
             </table>
           </div>
+          <p id="chain-warning" style="display: none">WARNING: Some counts appear to be chained (e.g. count 1 is concurrent with 2 and 2 is concurrent with 3).<br>
+            Sentence will not compute while chaining exists. Please adjust your selection.</p>
           <br>
 
           <label for="discount">Discount:</label>
-          <input type="number" name="discount" placeholder="e.g. 25, 33.3" class="num-field" onkeyup="calculateSentence()" value required> %<br><br>
+          <input type="number" name="discount" placeholder="e.g. 25, 33.3" class="num-field" id="discount" onkeyup="calculateSentence()" value required> %<br><br>
 
           <label for="sentencing">Date of sentencing:</label>
           <input type="date" name="date" value required><br><br><br>

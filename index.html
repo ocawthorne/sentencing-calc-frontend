@@ -43,12 +43,13 @@
 
           <div id="concurrent-question" style="display: none">
             <label for="concurrent">All Concurrent?</label>
-            <input type="checkbox" id="concurrent-check"><br><br>
+            <input type="checkbox" id="concurrent-check" checked><br><br>
           </div>
 
           <div id="concurrency-table" style="display: none">
             <table id="con-tab" style="display: block">
             <p><b>Concurrency Table</b></p> <!--TODO Add an info circle later. This allows you to select which sentences are concurrent with another.-->
+            <p>Select which pairs of counts are concurrent with others. If left unchecked, the counts are assumed to be consecutive.</p>
             <tr class="table-headers">
               <th class="space">&nbsp;</th>
               <th id="col1">1</th>
@@ -86,6 +87,9 @@
 
     </div>
     
-    <script type="text/javascript" src="bin/index.js"></script>
+    <script type="text/javascript" src="src/components/defendants.js" /></script>
+    <script type="text/javascript" src="src/adapters/DefendantsAdapter.js"></script>
+    <script type="text/javascript" src="src/components/app.js"></script>
+    <script type="text/javascript" src="src/index.js"></script>
   </body>
 </html>

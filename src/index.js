@@ -1,3 +1,5 @@
+const app = new App()
+
 function newDefendant() {
    let x = document.getElementById('new-defendant-form-container')
    if (x.style.display === "none") {
@@ -48,14 +50,17 @@ document.getElementsByClassName('new-count')[0].addEventListener('click', functi
 
 })
 
-document.getElementById('concurrent-check').addEventListener('click', function(e) {
+document.getElementById('concurrent-check').addEventListener('click', displayConcurrencyTable)
+document.querySelector('.new-count').addEventListener('click', displayConcurrencyTable)
+
+function displayConcurrencyTable() {
    let x = document.getElementById('concurrency-table')
-   if (e.target.checked || document.querySelectorAll('.count').length < 3) {
+   if (document.getElementById('concurrent-check').checked || document.querySelectorAll('.count').length < 3) {
       x.style.display = "none"
    } else {
       x.style.display = "block"
    }
-})
+}
 
 function calculateSentence() {
    let years = months = days = 0

@@ -1,15 +1,12 @@
 const app = new App()
-let EXCLUDED = []
-let WINPAIRS
+let days = 0
 
 function newDefendant() {
    let x = document.getElementById('new-defendant-form-container')
    if (x.style.display === "none") {
       x.style.display = "block"
-      return true
    } else {
       x.style.display = "none"
-      return false
    }
 }
 
@@ -66,15 +63,17 @@ function displayConcurrencyTable() {
 }
 
 function gordonEvaluator() {
+   let EXCLUDED = []
+   let WINNER
    let pairs = []
    let dupeBool = false
+   days = 0
    Array.from(document.querySelectorAll('.gordon')).forEach(pair => {
       if (pair.checked) pairs.push(Array.from(pair.classList).slice(1))
    })
    if (pairs.length > 1) {
       let chainPairs = []
       document.getElementById('chain-warning').style.display = "none"
-      let EXCLUDED = []
       for(let i=0; i<pairs.length; i++) {
          for(let j=0; j<pairs.length; j++) {
             if (pairs[i][1] === pairs[j][0]) {
@@ -82,62 +81,78 @@ function gordonEvaluator() {
                chainPairs.push([pairs[i], pairs[j]])
 
                let arr = [
-                  document.querySelector(`.gordon-num.years.${pairs[i][0]}`).value * 360 + document.querySelector(`.gordon-num.months.${pairs[i][0]}`).value * 12 + document.querySelector(`.gordon-num.days.${pairs[i][0]}`).value * 1,
-                  document.querySelector(`.gordon-num.years.${pairs[i][1]}`).value * 360 + document.querySelector(`.gordon-num.months.${pairs[i][1]}`).value * 12 + document.querySelector(`.gordon-num.days.${pairs[i][1]}`).value * 1,
-                  document.querySelector(`.gordon-num.years.${pairs[j][1]}`).value * 360 + document.querySelector(`.gordon-num.months.${pairs[j][1]}`).value * 12 + document.querySelector(`.gordon-num.days.${pairs[j][1]}`).value * 1
+                  getDaysFromYMD(pairs[i][0]),
+                  getDaysFromYMD(pairs[i][1]),
+                  getDaysFromYMD(pairs[j][1]),
                ]
 
                countArr = [pairs[i][0], pairs[i][1], pairs[j][1]]
                EXCLUDED.push(pairs[i][0], pairs[i][1], pairs[j][1])
                EXCLUDED = [...new Set(EXCLUDED)] // Removes duplicates
-               WINPAIRS = countArr[arr.indexOf(Math.max(arr[0],arr[1],arr[2]))]
+               WINNER = countArr[arr.indexOf(Math.max(arr[0],arr[1],arr[2]))]              
             }
          }
       }
    }
+
+   let tableDimensions = document.querySelectorAll('.count').length
+
+   // Firstly, add all days as if counts were consecutive:
+   for(let k=1; k<=tableDimensions; k++) {
+      days += getDaysFromYMD(`count-${k}`)
+   }
+
+   // Then, subtract each of the counts which are the "losers" in a concurrent scenario. The winner value stays.
+   if (EXCLUDED.length > 0) {
+      for(let k=0; k<EXCLUDED.length; k++) {
+         debugger
+         if (EXCLUDED[k] !== WINNER) days -= getDaysFromYMD(EXCLUDED[k])
+      }
+   }
+
+   // Finally, subtract the lower value in pairs which are not in the EXCLUDED array.
+   if (pairs.length > 0) {
+      pairs.forEach(pair => {
+         if (EXCLUDED.indexOf(pair[0]) === -1) { // If one of the pairs is not in EXCLUDED, the other will not be either.
+            days -= Math.min(getDaysFromYMD(pair[0]),getDaysFromYMD(pair[1]))
+         }
+      })
+   }
+
+   // if (pairs.length > 0) {
+   //    if (EXCLUDED.indexOf(`count-${k}`) === -1) {
+   //       if (!!WINNER) days += getDaysFromYMD(`${WINNER}`)
+   //       pairs.forEach(pair => {
+   //          debugger
+   //          days -= Math.min(getDaysFromYMD(pair[0]),getDaysFromYMD(pair[1]))
+   //       })
+   //    }
+   // }
+
    return {
       pairs: pairs,
-      chaining: dupeBool
+      chaining: dupeBool,
+      excluded: EXCLUDED,
+      winner: WINNER,
+      days: days
    }
+}
+
+function getDaysFromYMD(param) {
+   return document.querySelector(`.gordon-num.years.${param}`).value * 360 + document.querySelector(`.gordon-num.months.${param}`).value * 12 + document.querySelector(`.gordon-num.days.${param}`).value * 1
 }
 
 function calculateSentence() {
-   let days = 0
-   if (gordonEvaluator().pairs.length > 0) {
-      days = gordonEvaluator().days
-   }
-   document.querySelectorAll('.years,.months,.days').forEach(function(el) {
-      let val = parseInt(el.value)
-      switch(el.placeholder) {
-         case "years":
-            if (!isNaN(val)) days += val * 360
-            break
-         case "months":
-            if (!isNaN(val)) days += val * 12
-            break
-         case "days":
-            if (!isNaN(val)) days += val
-      }
-   })
-
-   let warning = document.getElementById('chain-warning')
-
-   if (gordonEvaluator().chaining) {
-      warning.style.display = "block"
-      days = 0
-   } else {
-      warning.style.display = "none"
-   }
-   
+   gordonEvaluator()
    document.getElementById('sentence-comp').innerText = convertToMD(days)
 }
 
-function convertToMD(days) { // Based on 30-day months, bfwd PRE-DISCOUNT
+function convertToMD(d) { // Based on 30-day months, bfwd PRE-DISCOUNT
    let discount = parseInt(document.getElementById('discount'))
    if (isNaN(discount)) discount = 0
 
-   let newDays = Math.floor(days*discount)
-   let daysDisp = newDays % 30 //FIXME Inaccurate computation, needs concurrency computations first from gordonEvaluator()
+   let newDays = Math.floor(d*(1-discount/100))
+   let daysDisp = newDays % 30
    let monthsDisp = Math.floor(newDays / 30)
 
    return `${monthsDisp} months, ${daysDisp} days`

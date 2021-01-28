@@ -35,7 +35,7 @@ document.getElementsByClassName('new-count')[0].addEventListener('click', functi
 
    el.innerHTML = `
    <label for="count" class="count">Count ${countNum+1}:</label>
-   <input type="text" name="count_${countNum+1}" placeholder="offence" value required>
+   <input type="text" name="count-${countNum+1}" class="offence" placeholder="offence" value required>
    <input type="number" min="0" name="years_${countNum+1}" placeholder="years" class="gordon-num years count-${countNum+1}" onkeyup="calculateSentence()">
    <input type="number" min="0" name="months_${countNum+1}" placeholder="months" class="gordon-num months count-${countNum+1}" onkeyup="calculateSentence()">
    <input type="number" min="0" name="days_${countNum+1}" placeholder="days" class="gordon-num days count-${countNum+1}" onkeyup="calculateSentence()"><br><br> 
@@ -124,7 +124,6 @@ function gordonEvaluator() {
    // Then, subtract each of the counts which are the "losers" in a concurrent scenario. The winner value stays.
    if (EXCLUDED.length > 0) {
       for(let k=0; k<EXCLUDED.length; k++) {
-         debugger
          if (EXCLUDED[k] !== WINNER) days -= getDaysFromYMD(EXCLUDED[k])
       }
    }
@@ -166,5 +165,22 @@ function copy() {
  }
 
 function save() {
-   // TODO Write code which saves an instance of Defendant into JSON
+   defendant = {
+      name: document.getElementById('defendant-name').value,
+      discount: document.getElementById('discount').value,
+      counts: [],
+      sentence_len: document.getElementById('sentence-comp').innerText,
+      sentence_len_raw: Math.floor(days*(1-discount.value/100)),
+      concurrency: gordonEvaluator().pairs,
+      session_id: session
+   }
+
+   Array.from(document.getElementsByClassName('offence')).forEach(offence => {
+      defendant.counts.push({
+         name: offence.value,
+         length: getDaysFromYMD(offence.name)
+      })
+   })
+   console.log(defendant)
+   return false
 }

@@ -36,12 +36,12 @@
         <h2>New Calculation</h2>
         <form class="add-defendant-form">
           <label for="name">Name of the Defendant:</label>
-          <input type="text" name="name" value required><br><br>
+          <input type="text" name="name" id="defendant-name" value required><br><br>
 
           <button class="new-count" type="button">Add Count</button><br><br>
           <div id="counts">
             <label for="count" class="count">Count 1:</label>
-            <input type="text" name="count_1" placeholder="offence" value required>
+            <input type="text" name="count-1" class="offence" placeholder="offence" value required>
             <input type="number" min="0" name="years_1" placeholder="years" class="gordon-num years count-1" onkeyup="calculateSentence()">
             <input type="number" min="0" name="months_1" placeholder="months" class="gordon-num months count-1" onkeyup="calculateSentence()">
             <input type="number" min="0" name="days_1" placeholder="days" class="gordon-num days count-1" onkeyup="calculateSentence()"><br><br>
@@ -86,7 +86,7 @@
           <h3>Total Sentence:</h3>
           <p id="sentence-comp">0 months, 0 days</p>
 
-          <input type="submit" value="Save" onclick="save()">
+          <button onclick="return save()">Save</button>
 
         </form>
       </div>

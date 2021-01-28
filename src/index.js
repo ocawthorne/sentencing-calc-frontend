@@ -1,7 +1,21 @@
 const app = new App()
 let days = 0
-let session = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-document.getElementById('session-id').firstChild.nodeValue = session
+let session
+
+newSession()
+
+function newSession() {
+   session = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+   document.getElementById('session-id').firstChild.nodeValue = session
+}
+
+// Provides warning about refreshing page. Doing this would erase the session ID.
+window.onbeforeunload = func => "Data will be lost if you leave the page, are you sure?";
+
+document.getElementById('new-session').addEventListener('click', function() {
+   let confirmation = confirm(`Are you sure you want to reset the session?\n\nIf you retrieve a new session ID, all your defendant data will be lost. However, if you keep your session ID safe, you will be able to access this information for 7 days until the data is automatically destroyed.`)
+   if (confirmation) newSession()
+})
 
 function newDefendant() {
    let x = document.getElementById('new-defendant-form-container')
@@ -123,6 +137,8 @@ function gordonEvaluator() {
          }
       })
    }
+
+   return {pairs: pairs}
 }
 
 function getDaysFromYMD(param) { // Takes in a string in the format of "count-n" where n is a natural number with a maximum of the table's dimensions.
@@ -144,6 +160,10 @@ function convertToMD() { // Based on 30-day months, bfwd PRE-DISCOUNT
 
    return `${monthsDisp} months, ${daysDisp} days`
 }
+
+function copy() {
+   window.prompt("Copy to clipboard: Ctrl+C, Enter", session)
+ }
 
 function save() {
    // TODO Write code which saves an instance of Defendant into JSON

@@ -24,7 +24,7 @@ document.getElementsByClassName('new-count')[0].addEventListener('click', functi
    <input type="number" min="0" name="months_${countNum+1}" placeholder="months" class="gordon-num months count-${countNum+1}" onkeyup="calculateSentence()">
    <input type="number" min="0" name="days_${countNum+1}" placeholder="days" class="gordon-num days count-${countNum+1}" onkeyup="calculateSentence()"><br><br> 
    `
-   //TODO needs a delete button for superfluous counts
+   
    nodes[nodes.length-1].parentNode.insertBefore(el, nodes.nextSibling)
 
    // Adding rows and columns to Concurrency Table
@@ -117,24 +117,6 @@ function gordonEvaluator() {
             days -= Math.min(getDaysFromYMD(pair[0]),getDaysFromYMD(pair[1]))
          }
       })
-   }
-
-   // if (pairs.length > 0) {
-   //    if (EXCLUDED.indexOf(`count-${k}`) === -1) {
-   //       if (!!WINNER) days += getDaysFromYMD(`${WINNER}`)
-   //       pairs.forEach(pair => {
-   //          debugger
-   //          days -= Math.min(getDaysFromYMD(pair[0]),getDaysFromYMD(pair[1]))
-   //       })
-   //    }
-   // }
-
-   return {
-      pairs: pairs,
-      chaining: dupeBool,
-      excluded: EXCLUDED,
-      winner: WINNER,
-      days: days
    }
 }
 

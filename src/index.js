@@ -24,7 +24,7 @@ document.getElementsByClassName('new-count')[0].addEventListener('click', functi
    <input type="number" min="0" name="months_${countNum+1}" placeholder="months" class="gordon-num months count-${countNum+1}" onkeyup="calculateSentence()">
    <input type="number" min="0" name="days_${countNum+1}" placeholder="days" class="gordon-num days count-${countNum+1}" onkeyup="calculateSentence()"><br><br> 
    `
-   
+
    nodes[nodes.length-1].parentNode.insertBefore(el, nodes.nextSibling)
 
    // Adding rows and columns to Concurrency Table
@@ -73,7 +73,6 @@ function gordonEvaluator() {
    })
    if (pairs.length > 1) {
       let chainPairs = []
-      document.getElementById('chain-warning').style.display = "none"
       for(let i=0; i<pairs.length; i++) {
          for(let j=0; j<pairs.length; j++) {
             if (pairs[i][1] === pairs[j][0]) {
@@ -121,7 +120,7 @@ function gordonEvaluator() {
 }
 
 function getDaysFromYMD(param) {
-   return document.querySelector(`.gordon-num.years.${param}`).value * 360 + document.querySelector(`.gordon-num.months.${param}`).value * 12 + document.querySelector(`.gordon-num.days.${param}`).value * 1
+   return document.querySelector(`.gordon-num.years.${param}`).value * 360 + document.querySelector(`.gordon-num.months.${param}`).value * 30 + document.querySelector(`.gordon-num.days.${param}`).value * 1
 }
 
 function calculateSentence() {
@@ -129,11 +128,11 @@ function calculateSentence() {
    document.getElementById('sentence-comp').innerText = convertToMD(days)
 }
 
-function convertToMD(d) { // Based on 30-day months, bfwd PRE-DISCOUNT
-   let discount = parseInt(document.getElementById('discount'))
+function convertToMD() { // Based on 30-day months, bfwd PRE-DISCOUNT
+   let discount = parseInt(document.getElementById('discount').value)
    if (isNaN(discount)) discount = 0
 
-   let newDays = Math.floor(d*(1-discount/100))
+   let newDays = Math.floor(days*(1-discount/100))
    let daysDisp = newDays % 30
    let monthsDisp = Math.floor(newDays / 30)
 

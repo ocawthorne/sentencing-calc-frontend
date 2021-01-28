@@ -1,5 +1,7 @@
 const app = new App()
 let days = 0
+let session = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+document.getElementById('session-id').firstChild.nodeValue = session
 
 function newDefendant() {
    let x = document.getElementById('new-defendant-form-container')
@@ -78,6 +80,7 @@ function gordonEvaluator() {
       return days = Math.max(...arr)
    }
 
+   // If not checked, then the process of searching for chained concurrences occurs.
    Array.from(document.querySelectorAll('.gordon')).forEach(pair => {
       if (pair.checked) pairs.push(Array.from(pair.classList).slice(1))
    })

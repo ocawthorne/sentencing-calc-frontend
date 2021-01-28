@@ -66,25 +66,19 @@ function gordonEvaluator() {
    let EXCLUDED = []
    let WINNER
    let pairs = []
-   let dupeBool = false
    days = 0
    Array.from(document.querySelectorAll('.gordon')).forEach(pair => {
       if (pair.checked) pairs.push(Array.from(pair.classList).slice(1))
    })
    if (pairs.length > 1) {
-      let chainPairs = []
       for(let i=0; i<pairs.length; i++) {
          for(let j=0; j<pairs.length; j++) {
             if (pairs[i][1] === pairs[j][0]) {
-               dupeBool = true
-               chainPairs.push([pairs[i], pairs[j]])
-
                let arr = [
                   getDaysFromYMD(pairs[i][0]),
                   getDaysFromYMD(pairs[i][1]),
                   getDaysFromYMD(pairs[j][1]),
                ]
-
                countArr = [pairs[i][0], pairs[i][1], pairs[j][1]]
                EXCLUDED.push(pairs[i][0], pairs[i][1], pairs[j][1])
                EXCLUDED = [...new Set(EXCLUDED)] // Removes duplicates
@@ -95,6 +89,15 @@ function gordonEvaluator() {
    }
 
    let tableDimensions = document.querySelectorAll('.count').length
+
+   // Before anything, check if the "all concurrent?" box has been checked. If so, only max is needed.
+   if (document.getElementById('concurrent-check').checked) {
+      arr = []
+      for(let k=1; k<=tableDimensions; k++) {
+         arr.push(parseInt(getDaysFromYMD(`count-${k}`)))
+      }
+      return days = Math.max(...arr)
+   }
 
    // Firstly, add all days as if counts were consecutive:
    for(let k=1; k<=tableDimensions; k++) {
@@ -119,7 +122,7 @@ function gordonEvaluator() {
    }
 }
 
-function getDaysFromYMD(param) {
+function getDaysFromYMD(param) { // Takes in a string in the format of "count-n" where n is a natural number with a maximum of the table's dimensions.
    return document.querySelector(`.gordon-num.years.${param}`).value * 360 + document.querySelector(`.gordon-num.months.${param}`).value * 30 + document.querySelector(`.gordon-num.days.${param}`).value * 1
 }
 

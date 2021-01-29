@@ -27,15 +27,22 @@ document.getElementById('previous-session-button').addEventListener('click', fun
 document.getElementById('new-session').addEventListener('click', function() {
    let confirmation = confirm(`Are you sure you want to reset the session?\n\nIf you retrieve a new session ID, all your defendant data will be lost. However, if you keep your session ID safe, you will be able to access this information for 7 days until the data is automatically destroyed.`)
    if (confirmation) newSession()
+   newDefendant()
 })
 
+const newForm = document.getElementById('new-defendant-form-container')
+const defendantDisplay = document.getElementById('defendant-display') 
+
 function newDefendant() {
-   let x = document.getElementById('new-defendant-form-container')
-   if (x.style.display === "none") {
-      x.style.display = "block"
-   } else {
-      x.style.display = "none"
-   }
+   newForm.style.display = "block"
+   defendantDisplay.style.display = "none"
+}
+
+function displayDefendant(e) {
+   let id = e.target.dataset.defendant
+   debugger
+   newForm.style.display = "none"
+   defendantDisplay.style.display = "block"
 }
 
 document.getElementsByClassName('new-count')[0].addEventListener('click', function(e) { // Inserting new counts in New Defendant

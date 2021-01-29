@@ -18,4 +18,8 @@ class DefendantsAdapter {
    getDefendants() {
       return fetch(this.baseUrl).then(res => res.json())
    }
+
+   getDefendant(e) {
+      
+   }
 }

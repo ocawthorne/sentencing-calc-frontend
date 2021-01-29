@@ -7,12 +7,11 @@ class Defendants {
    }
 
    bindEventListeners() {
-      this.defendantForm = document.getElementById('add-defendant-form')   
+      this.defendantForm = document.getElementById('add-defendant-form')
       this.defendantForm.addEventListener('submit', this.createDefendant.bind(this))
    }
 
    createDefendant(e) {
-      debugger
       e.preventDefault()
 
       let defendant = {
@@ -35,9 +34,10 @@ class Defendants {
          }
       })
 
+      if (!!defendant.name) this.adapter.createDefendant(defendant).then(def => this.defendants.push(def)).then(d => this.render())
       document.forms[0].reset() // Clear form fields
 
-      this.adapter.createDefendant(defendant).then(def => this.defendants.push(def))
+
    }
 
    fetchAndLoadDefendants() {
@@ -45,7 +45,6 @@ class Defendants {
       this.adapter.getDefendants().then(defendants => {
          defendants.forEach(def => {
             if (def.session_id === this.session) this.defendants.push(def)
-            console.log(this.defendants)
          })
       })
       .then(() => {
@@ -55,14 +54,16 @@ class Defendants {
 
    render() {
       const defendantsContainer = document.getElementById('defendant-list')
-      
+      defendantsContainer.innerHTML = ''
+
       this.defendants.forEach(def => {
          let defLink = document.createElement('a')
          defLink.setAttribute('href', 'javascript:void(0)')
+         defLink.setAttribute('class', 'sidebar-defendant')
          defLink.setAttribute('data-defendant', `${def.id}`)
          defLink.innerText = ` ${def.name}`
+         defLink.addEventListener('click', displayDefendant)
          defendantsContainer.appendChild(defLink)
       })
-      
    }
 }

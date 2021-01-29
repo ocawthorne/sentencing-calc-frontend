@@ -7,8 +7,8 @@ class Defendants {
    }
 
    bindEventListeners() {
-      this.defendantForm = document.getElementById('add-defendant-form')
-      this.defendantForm.addEventListener('submit', this.createDefendant)
+      this.defendantForm = document.getElementById('add-defendant-form')   
+      this.defendantForm.addEventListener('submit', this.createDefendant.bind(this))
    }
 
    createDefendant(e) {
@@ -34,15 +34,15 @@ class Defendants {
          }
       })
 
-      console.log(defendant)
+      document.forms[0].reset() // Clear form fields
 
+      this.adapter.createDefendant(defendant).then(def => this.defendants.push(new Defendant(def)))
 
-      document.forms[0].reset() // Clear
    }
 
    fetchAndLoadDefendants() {
       this.adapter.getDefendants().then(defendants => {
-         defendants.forEach(defendant => this.defendants.push(defendant))
+         defendants.forEach(defendant => this.defendants.push(new Defendant(defendant)))
       })
       .then(() => {
          this.render()
@@ -51,6 +51,5 @@ class Defendants {
 
    render() {
       const defendantsContainer = document.getElementById('defendant-display')
-      
    }
 }

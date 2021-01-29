@@ -100,15 +100,23 @@ function gordonEvaluator() {
       if (pair.checked) pairs.push(Array.from(pair.classList).slice(1))
    })
    if (pairs.length > 1) {
+      // In the primary for loop, the second element of each pair is selected for comparison.
       for(let i=0; i<pairs.length; i++) {
+         // In the secondary for loop, the first element of each pair is selected for comparison.
          for(let j=0; j<pairs.length; j++) {
-            if (pairs[i][1] === pairs[j][0]) {
+            /* Each pair is in the format [count-a, count-b], [count-c, count-d], etc.
+            Assume that count-a = A, count-b = B, etc. Any two pairs = [A,X][Y,C]
+            If X=Y then it follows that the pairs are equivalent to [A,X][X,C].
+            This means that A and C, through X, are connected. Thus, [A,X][X,C] is identical to [A,X][A,C].
+            The three elements A, X, and C are separated into an array, EXCLUDED, from which a WINNER is determined.
+            In cases where this is not true (i.e. X != Y) then there is no link between A, X, and C. */
+            if (pairs[i][1] === pairs[j][0]) { 
                let arr = [
                   getDaysFromYMD(pairs[i][0]),
                   getDaysFromYMD(pairs[i][1]),
                   getDaysFromYMD(pairs[j][1]),
                ]
-               countArr = [pairs[i][0], pairs[i][1], pairs[j][1]]
+               countArr = [pairs[i][0], pairs[i][1], pairs[j][1]] //TODO Check whether this line is necessary. Could be replaced by EXCLUDED.
                EXCLUDED.push(pairs[i][0], pairs[i][1], pairs[j][1])
                EXCLUDED = [...new Set(EXCLUDED)] // Removes duplicates
                WINNER = countArr[arr.indexOf(Math.max(...arr))]              

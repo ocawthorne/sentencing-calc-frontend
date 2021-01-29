@@ -38,6 +38,7 @@ document.getElementsByClassName('new-count')[0].addEventListener('click', functi
    <input type="text" name="count-${countNum+1}" class="offence" placeholder="offence" value required>
    <input type="number" min="0" name="years_${countNum+1}" placeholder="years" class="gordon-num years count-${countNum+1}" onkeyup="calculateSentence()">
    <input type="number" min="0" name="months_${countNum+1}" placeholder="months" class="gordon-num months count-${countNum+1}" onkeyup="calculateSentence()">
+   <input type="number" min="0" name="weeks_${countNum+1}" placeholder="weeks" class="gordon-num weeks count-${countNum+1}" onkeyup="calculateSentence()">
    <input type="number" min="0" name="days_${countNum+1}" placeholder="days" class="gordon-num days count-${countNum+1}" onkeyup="calculateSentence()"><br><br> 
    `
 
@@ -141,7 +142,7 @@ function gordonEvaluator() {
 }
 
 function getDaysFromYMD(param) { // Takes in a string in the format of "count-n" where n is a natural number with a maximum of the table's dimensions.
-   return document.querySelector(`.gordon-num.years.${param}`).value * 360 + document.querySelector(`.gordon-num.months.${param}`).value * 30 + document.querySelector(`.gordon-num.days.${param}`).value * 1
+   return document.querySelector(`.gordon-num.years.${param}`).value * 360 + document.querySelector(`.gordon-num.months.${param}`).value * 30 + document.querySelector(`.gordon-num.weeks.${param}`).value * 7 + document.querySelector(`.gordon-num.days.${param}`).value * 1
 }
 
 function calculateSentence() {
@@ -162,25 +163,4 @@ function convertToMD() { // Based on 30-day months, bfwd PRE-DISCOUNT
 
 function copy() {
    window.prompt("Copy to clipboard: Ctrl+C, Enter", session)
- }
-
-function save() {
-   defendant = {
-      name: document.getElementById('defendant-name').value,
-      discount: document.getElementById('discount').value,
-      counts: [],
-      sentence_len: document.getElementById('sentence-comp').innerText,
-      sentence_len_raw: Math.floor(days*(1-discount.value/100)),
-      concurrency: gordonEvaluator().pairs,
-      session_id: session
-   }
-
-   Array.from(document.getElementsByClassName('offence')).forEach(offence => {
-      defendant.counts.push({
-         name: offence.value,
-         length: getDaysFromYMD(offence.name)
-      })
-   })
-   console.log(defendant)
-   return false
 }

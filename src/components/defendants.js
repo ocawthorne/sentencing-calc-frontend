@@ -36,13 +36,16 @@ class Defendants {
 
       document.forms[0].reset() // Clear form fields
 
-      this.adapter.createDefendant(defendant).then(def => this.defendants.push(new Defendant(def)))
-
+      this.adapter.createDefendant(defendant).then(def => this.defendants.push(def))
    }
 
    fetchAndLoadDefendants() {
+      this.session = document.getElementById('session-id').firstChild.nodeValue
       this.adapter.getDefendants().then(defendants => {
-         defendants.forEach(defendant => this.defendants.push(new Defendant(defendant)))
+         console.log(defendants)
+         defendants.forEach(def => {
+            if (def.session_id === this.session) this.defendants.push(def)
+         })
       })
       .then(() => {
          this.render()

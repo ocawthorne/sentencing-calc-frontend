@@ -11,11 +11,14 @@
     <div class='sidebar'>
       <img src="https://cdn.cp.adobe.io/content/2/rendition/c04e909a-a6e9-4bed-b69b-c3e47e3632b6/artwork/b4462e73-dca2-4dca-ba13-979f5716fe64/version/0/format/jpg/dimension/width/size/220" style="height:140px">
       ><p>Saved Defendants</p>
-      <!--TODO List of defendants belonging to the current Session ID go here in a href tags-->
+      <div id="defendant-list">
+        <a href='javascript:void(0)'> Test</a>
+        <a href='javascript:void(0)'> Test</a>
+      </div>
       <br><br>
       ><p>Options</p>
-      <a href='javascript:void(0)' class="option" id="new-defendant" onclick="newDefendant()"> New Defendant</a> <!--TODO When clicked, ensure that this removes #display from the DOM and includes #form-->
-      <a href='javascript:void(0)' class="option" id="new-session"> New Session</a> <!--TODO Erase current session and start new one with SecureRandom.hex (worry about this later). ALSO, warning before new session-->
+      <a href='javascript:void(0)' class="option" id="new-defendant" onclick="newDefendant()"> New Defendant</a>
+      <a href='javascript:void(0)' class="option" id="new-session"> New Session</a>
     </div>
 
      <!-- Main Content -->
@@ -27,6 +30,7 @@
           <span class="tooltiptext">This ID is used to retrieve the defendants that you save.<br>These IDs are destroyed automatically after 7 days.</span>
         </span> <button onclick="copy()">Copy to Clipboard</button>
       </p>
+      <p><i>(Enter another session ID)</i>: <input id="previous-session-field"> <button id="previous-session-button" onclick="newSession()">Submit</button></p>
       
 
       <br>

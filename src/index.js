@@ -11,6 +11,7 @@ function newSession(manual) {
       session = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
    }
    document.getElementById('session-id').firstChild.nodeValue = session
+   document.getElementById('defendant-list').innerHTML = ''
    new Defendants
 }
 
@@ -20,6 +21,7 @@ window.onbeforeunload = func => "Data will be lost if you leave the page, are yo
 // Provides a listener for a manual session ID.
 document.getElementById('previous-session-button').addEventListener('click', function() {
    if (!!document.getElementById('previous-session-field').value) newSession(true)
+   document.getElementById('previous-session-field').value = ''
 })
 
 document.getElementById('new-session').addEventListener('click', function() {

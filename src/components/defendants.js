@@ -12,6 +12,7 @@ class Defendants {
    }
 
    createDefendant(e) {
+      debugger
       e.preventDefault()
 
       let defendant = {
@@ -42,9 +43,9 @@ class Defendants {
    fetchAndLoadDefendants() {
       this.session = document.getElementById('session-id').firstChild.nodeValue
       this.adapter.getDefendants().then(defendants => {
-         console.log(defendants)
          defendants.forEach(def => {
             if (def.session_id === this.session) this.defendants.push(def)
+            console.log(this.defendants)
          })
       })
       .then(() => {
@@ -53,6 +54,15 @@ class Defendants {
    }
 
    render() {
-      const defendantsContainer = document.getElementById('defendant-display')
+      const defendantsContainer = document.getElementById('defendant-list')
+      
+      this.defendants.forEach(def => {
+         let defLink = document.createElement('a')
+         defLink.setAttribute('href', 'javascript:void(0)')
+         defLink.setAttribute('data-defendant', `${def.id}`)
+         defLink.innerText = ` ${def.name}`
+         defendantsContainer.appendChild(defLink)
+      })
+      
    }
 }

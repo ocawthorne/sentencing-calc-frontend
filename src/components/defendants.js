@@ -71,6 +71,9 @@ class Defendants {
          defLink.setAttribute('data-defendant', `${def.id}`)
          defLink.innerText = ` ${def.name}`
          defendantsContainer.appendChild(defLink)
+         if (document.getElementsByClassName('sidebar-defendant').length > 0) {
+            document.getElementById('defendant-list-title').style.display = "block"
+         }
       })
    }
 }

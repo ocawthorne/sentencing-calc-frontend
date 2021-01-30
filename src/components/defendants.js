@@ -32,7 +32,7 @@ class Defendants {
          if (!!offence.value && countLength > 0) {
             defendant.counts.push({
                name: offence.value,
-               length: countLength
+               length: convertToMD(countLength, true)
             })
          }
       })

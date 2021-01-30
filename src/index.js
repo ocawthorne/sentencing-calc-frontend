@@ -170,9 +170,13 @@ function calculateSentence() {
    document.getElementById('sentence-comp').innerText = convertToMD(days)
 }
 
-function convertToMD() { // Based on 30-day months, bfwd PRE-DISCOUNT
+function convertToMD(days, noDiscount=false) { // Based on 30-day months, bfwd PRE-DISCOUNT
    let discount = parseInt(document.getElementById('discount').value)
-   if (isNaN(discount)) discount = 0
+   if (noDiscount) {
+      discount = 0
+   } else {
+      if (isNaN(discount)) discount = 0
+   }
 
    let newDays = Math.floor(days*(1-discount/100))
    let daysDisp = newDays % 30

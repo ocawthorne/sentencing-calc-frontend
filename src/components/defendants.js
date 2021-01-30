@@ -9,6 +9,9 @@ class Defendants {
    bindEventListeners() {
       this.defendantForm = document.getElementById('add-defendant-form')
       this.defendantForm.addEventListener('submit', this.createDefendant.bind(this))
+
+      this.defendantView = document.getElementById('defendant-list')
+      this.defendantView.addEventListener('click', this.getAndDisplayDefendant.bind(this))
    }
 
    createDefendant(e) {
@@ -36,8 +39,13 @@ class Defendants {
 
       if (!!defendant.name) this.adapter.createDefendant(defendant).then(def => this.defendants.push(def)).then(d => this.render())
       document.forms[0].reset() // Clear form fields
+   }
 
-
+   getAndDisplayDefendant(e) {
+      // let id = e.target.dataset.defendant
+      const def = this.adapter.getDefendant(e)
+      newForm.style.display = "none"
+      defendantDisplay.style.display = "block"
    }
 
    fetchAndLoadDefendants() {
@@ -62,7 +70,6 @@ class Defendants {
          defLink.setAttribute('class', 'sidebar-defendant')
          defLink.setAttribute('data-defendant', `${def.id}`)
          defLink.innerText = ` ${def.name}`
-         defLink.addEventListener('click', displayDefendant)
          defendantsContainer.appendChild(defLink)
       })
    }

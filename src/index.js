@@ -38,13 +38,6 @@ function newDefendant() {
    defendantDisplay.style.display = "none"
 }
 
-function displayDefendant(e) {
-   let id = e.target.dataset.defendant
-   debugger
-   newForm.style.display = "none"
-   defendantDisplay.style.display = "block"
-}
-
 document.getElementsByClassName('new-count')[0].addEventListener('click', function(e) { // Inserting new counts in New Defendant
    // Adding offence, Y/M/D fields
    e.preventDefault()

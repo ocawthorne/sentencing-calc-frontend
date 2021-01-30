@@ -9,7 +9,7 @@
   <body>
     <!-- Sidebar Navigation -->
     <div class='sidebar'>
-      <img src="https://cdn.cp.adobe.io/content/2/rendition/c04e909a-a6e9-4bed-b69b-c3e47e3632b6/artwork/b4462e73-dca2-4dca-ba13-979f5716fe64/version/0/format/jpg/dimension/width/size/220" style="height:140px">
+      <img src="https://i.imgur.com/qMR3lXd.png" style="width:238px" />
       <p>Saved Defendants</p>
       <div id="defendant-list">
       </div>
@@ -18,22 +18,19 @@
       <a href='javascript:void(0)' class="option" id="new-session"> New Session</a>
     </div>
 
-     <!-- Main Content -->
-     
-    <div class="main">
-      <h1>Sentencing Calculator</h1>
+    <div class='header'>
       <p>Session ID:
         <span id="session-id" class="tooltip">
           <span class="tooltiptext">This ID is used to retrieve the defendants that you save.<br>These IDs are destroyed automatically after 7 days.</span>
         </span> <button onclick="copy()">Copy to Clipboard</button>
+        <i> (Enter another session ID)</i>: <input id="previous-session-field"> <button id="previous-session-button" onclick="newSession()">Submit</button>
       </p>
-      <p><i>(Enter another session ID)</i>: <input id="previous-session-field"> <button id="previous-session-button" onclick="newSession()">Submit</button></p>
-      
+    </div>
 
-      <br>
-      
+     <!-- Main Content -->
+     
+    <div class="main">
       <div id="new-defendant-form-container" style="display: block;">
-
         <h2>New Calculation</h2>
         <form id="add-defendant-form">
           <label for="name">Name of the Defendant:</label>
@@ -95,7 +92,7 @@
         </form>
       </div>
 
-      <div id="defendant-display" style="display: none;"> <!--TODO Build a display for when an existing defendant has been clicked-->
+      <div id="defendant-display" style="display: none;">
         <h2 id="display-name">Defendant</h2>
         <br>
         <p><b>Counts before discount and concurrency considerations:</b></p>

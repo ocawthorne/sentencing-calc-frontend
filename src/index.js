@@ -47,7 +47,7 @@ document.getElementsByClassName('new-count')[0].addEventListener('click', functi
 
    el.innerHTML = `
    <label for="count" class="count">Count ${countNum+1}:</label>
-   <input type="text" name="count-${countNum+1}" class="offence" placeholder="offence" value required>
+   <input type="text" name="count-${countNum+1}" class="offence" placeholder="offence">
    <input type="number" min="0" name="years_${countNum+1}" placeholder="years" class="gordon-num years count-${countNum+1}" onkeyup="calculateSentence()">
    <input type="number" min="0" name="months_${countNum+1}" placeholder="months" class="gordon-num months count-${countNum+1}" onkeyup="calculateSentence()">
    <input type="number" min="0" name="weeks_${countNum+1}" placeholder="weeks" class="gordon-num weeks count-${countNum+1}" onkeyup="calculateSentence()">

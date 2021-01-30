@@ -3,20 +3,21 @@ class DefendantsAdapter {
       this.baseUrl = 'http://localhost:3000/api/v1/defendants'
    }
 
-   createDefendant(defendant) {
-      return fetch(this.baseUrl, {
+   async createDefendant(defendant) {
+      const res = await fetch(this.baseUrl, {
          headers: {
             'Accepts': 'application/json',
             'Content-Type': 'application/json'
          },
          method: "POST",
          body: JSON.stringify(defendant)
-      }).then(res => res.json())
-      debugger
+      })
+      return await res.json()
    }
 
-   getDefendants() {
-      return fetch(this.baseUrl).then(res => res.json())
+   async getDefendants() {
+      const res = await fetch(this.baseUrl)
+      return await res.json()
    }
 
    async getDefendant(e) {
@@ -31,11 +32,16 @@ class DefendantsAdapter {
       
       // Name
       document.getElementById('display-name').innerText = defendant.name
-
-      //FIXME Counts (backend needs to recognise has_many counts properly.)
-      // defendant.counts
-      // document.getElementById('display-counts')
-
+      
+      //Counts
+      let countContainer = document.getElementById('display-counts')
+      if (countContainer.childElementCount !== defendant.counts.length) {
+         for(let k=0; k<defendant.counts.length; k++) {
+            let newLi = document.createElement('li')
+            newLi.innerText = `Count ${k+1}: ${defendant.counts[k].name}` //FIXME Include concurrencies by modifying Rails models
+            countContainer.appendChild(newLi)
+         }
+      }
       // Discount
       document.getElementById('display-discount').innerText = defendant.discount
 

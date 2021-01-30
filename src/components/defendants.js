@@ -43,7 +43,7 @@ class Defendants {
 
    getAndDisplayDefendant(e) {
       // let id = e.target.dataset.defendant
-      const def = this.adapter.getDefendant(e)
+      this.adapter.getDefendant(e)
       newForm.style.display = "none"
       defendantDisplay.style.display = "block"
    }

@@ -12,6 +12,7 @@ function newSession(manual) {
    }
    document.getElementById('session-id').firstChild.nodeValue = session
    document.getElementById('defendant-list').innerHTML = ''
+   document.getElementById('defendant-list-title').style.display = "none"
    new Defendants
 }
 

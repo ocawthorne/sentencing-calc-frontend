@@ -39,6 +39,14 @@ td, th {
   white-space: nowrap;
   padding-top: 0px;
   display: inline;
+  padding-left: 29px;
+}
+
+.footer {
+  height:65px;
+  width:100%;
+  position:absolute;
+  bottom:0;
 }
 
 .sidebar {

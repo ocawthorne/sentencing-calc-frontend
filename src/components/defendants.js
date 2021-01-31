@@ -39,6 +39,32 @@ class Defendants {
 
       if (!!defendant.name) this.adapter.createDefendant(defendant).then(def => this.defendants.push(def)).then(d => this.render())
       document.forms[0].reset() // Clear form fields
+
+      // Reset all other values and fields
+
+      document.getElementById('con-tab').innerHTML = `
+         <tr class="table-headers">
+            <th class="space">&nbsp;</th>
+            <th id="col1">1</th>
+         </tr>
+         <tr id="row1">
+            <th>1</th>
+         <td>-</td>
+      </tr>
+      `
+
+      document.getElementById('concurrency-table').style.display = "none"
+
+      document.getElementById('counts').innerHTML = `
+      <label for="count" class="count">Count 1:</label>
+      <input type="text" name="count-1" class="offence" placeholder="offence" value required>
+      <input type="number" min="0" name="years_1" placeholder="years" class="gordon-num years count-1" onkeyup="calculateSentence()">
+      <input type="number" min="0" name="months_1" placeholder="months" class="gordon-num months count-1" onkeyup="calculateSentence()">
+      <input type="number" min="0" name="weeks_1" placeholder="weeks" class="gordon-num weeks count-1" onkeyup="calculateSentence()">
+      <input type="number" min="0" name="days_1" placeholder="days" class="gordon-num days count-1" onkeyup="calculateSentence()"><br><br>
+      `
+
+      document.getElementById('sentence-comp').innerText = "0 months, 0 days"
    }
 
    getAndDisplayDefendant(e) {

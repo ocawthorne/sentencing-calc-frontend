@@ -1,5 +1,5 @@
 let session
-newSession()
+newSession() // A session is defined before the DOM loads so that the user has a session ID before viewing the page
 const app = new App()
 let days = 0
 

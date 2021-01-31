@@ -2,7 +2,7 @@ body {
   font-family: 'Arial', sans-serif;
   margin: 2rem 3rem;
   font-size: 15px;
-  background-color: #fffdf7;
+  background-color: #EDEDED;
 }
 
 #new-defendant-form-container input.gordon-num {
@@ -29,7 +29,7 @@ td, th {
   z-index: 1;
   top: 0;
   left: 250px;
-  background-color: #000A44;
+  background-color: #3770BA;
   color: white;
   overflow-y: hidden;
   text-align: left;
@@ -37,6 +37,20 @@ td, th {
   padding-top: 0px;
   display: inline;
   padding-left: 29px;
+}
+
+.header a {
+  padding: 6px 8px 6px 16px;
+  font-size: 12px;
+  text-decoration: none;
+  color: #818181;
+  display: inline;
+  text-align: right;
+  text-indent: 20px;
+}
+
+.header a:hover {
+  color: #f1f1f1;
 }
 
 .footer {
@@ -67,6 +81,10 @@ td, th {
   text-indent: 16px;
 }
 
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
 .sidebar p {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
@@ -78,10 +96,6 @@ td, th {
   padding: 0px 8px;
 }
 
-.sidebar a:hover {
-  color: #f1f1f1;
-}
- 
 .main {
    margin-left: 30px;
    padding: 20px 200px; /* Padded out to match sidebar */

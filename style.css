@@ -1,6 +1,6 @@
 body {
   font-family: 'Arial', sans-serif;
-  margin: 2rem 3rem;
+  margin: 3rem 3rem;
   font-size: 15px;
   background-color: #EDEDED;
 }
@@ -23,7 +23,7 @@ td, th {
 }
 
 .header {
-  height: 50px;
+  height: 55px;
   width: 100%;
   position: fixed;
   z-index: 1;
@@ -123,7 +123,7 @@ td, th {
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
-  transform: translateX(2%);
+  transform: translateX(2%) translateY(-20%);
 }
 
 .tooltip .tooltiptext::after {
@@ -131,7 +131,7 @@ td, th {
   position: absolute;
   top: 25%;
   right: 100%; /* To the left of the tooltip */
-  margin-top: -5px;
+  margin-top: 2px;
   border-width: 5px;
   border-style: solid;
   border-color: transparent black transparent transparent;

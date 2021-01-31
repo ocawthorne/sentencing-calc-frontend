@@ -43,14 +43,14 @@ td, th {
   padding: 6px 8px 6px 16px;
   font-size: 12px;
   text-decoration: none;
-  color: #818181;
+  color: #ffffff;
   display: inline;
   text-align: right;
   text-indent: 20px;
 }
 
 .header a:hover {
-  color: #f1f1f1;
+  color: #ffafaf;
 }
 
 .footer {

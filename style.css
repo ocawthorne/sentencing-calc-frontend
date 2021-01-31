@@ -1,6 +1,8 @@
 body {
   font-family: 'Arial', sans-serif;
   margin: 2rem 3rem;
+  font-size: 15px;
+  background-color: #fffdf7;
 }
 
 #new-defendant-form-container input.gordon-num {
@@ -14,10 +16,6 @@ table {
   table-layout: fixed
 }
 
-.error {
-  color: red;
-}
-
 td, th {
   border: 1px solid #dddddd;
   text-align: center;
@@ -25,8 +23,7 @@ td, th {
 }
 
 .header {
-  font-size: 14px;
-  height: 45px;
+  height: 50px;
   width: 100%;
   position: fixed;
   z-index: 1;
@@ -50,47 +47,44 @@ td, th {
 }
 
 .sidebar {
-   height: 100%;
-   width: 250px;
-   position: fixed;
-   z-index: 1;
-   top: 0;
-   left: 0;
-   background-color: #000A44;
-   overflow-x: hidden;
-   padding-top: 20px;
- }
- 
- /* The navigation menu links */
- .sidebar a {
-   padding: 6px 8px 6px 16px;
-   text-decoration: none;
-   font-size: 14px;
-   color: #818181;
-   display: block;
- }
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #000A44;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
 
- .sidebar p {
+ /* The navigation menu links */
+.sidebar a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
-  font-size: 14px;
+  color: #818181;
+  display: block;
+  text-indent: 16px;
+}
+
+.sidebar p {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
   color: #ddfaff;
   display: inline-block;
 }
  
- .sidebar img {
-   padding: 0px 8px;
- }
+.sidebar img {
+  padding: 0px 8px;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
  
- .sidebar a:hover {
-   color: #f1f1f1;
- }
- 
- /* Style page content */
- .main {
-   margin-left: 220px;
-   padding: 20px 10px;
-   font-size: 14px
+.main {
+   margin-left: 30px;
+   padding: 20px 200px; /* Padded out to match sidebar */
 }
 
 .tooltip {
@@ -115,7 +109,7 @@ td, th {
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
-  transform: translateX(2%)
+  transform: translateX(2%);
 }
 
 .tooltip .tooltiptext::after {

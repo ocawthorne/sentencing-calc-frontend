@@ -39,7 +39,7 @@ class Defendants {
 
       if (!!defendant.name) this.adapter.createDefendant(defendant).then(def => this.defendants.push(def)).then(d => this.render())
 
-      this.resetFields()
+      resetFields()
    }
 
    getAndDisplayDefendant(e) {

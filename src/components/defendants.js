@@ -16,7 +16,7 @@ class Defendants {
 
    createDefendant(e) {
       e.preventDefault()
-
+      this.session = document.getElementById('session-id').firstChild.nodeValue
       let defendant = {
          name: document.getElementById('defendant-name').value,
          discount: document.getElementById('discount').value*1,
@@ -45,13 +45,15 @@ class Defendants {
    getAndDisplayDefendant(e) {
       // let id = e.target.dataset.defendant
       this.adapter.getDefendant(e)
+      // Display
       newForm.style.display = "none"
       defendantDisplay.style.display = "block"
-   }
+}
 
    fetchAndLoadDefendants() {
       this.session = document.getElementById('session-id').firstChild.nodeValue
       this.adapter.getDefendants().then(defendants => {
+         this.defendants = []
          defendants.forEach(def => {
             if (def.session_id === this.session) this.defendants.push(def)
          })
@@ -66,14 +68,16 @@ class Defendants {
       defendantsContainer.innerHTML = ''
 
       this.defendants.forEach(def => {
-         let defLink = document.createElement('a')
-         defLink.setAttribute('href', 'javascript:void(0)')
-         defLink.setAttribute('class', 'sidebar-defendant')
-         defLink.setAttribute('data-defendant', `${def.id}`)
-         defLink.innerText = ` ${def.name}`
-         defendantsContainer.appendChild(defLink)
-         if (document.getElementsByClassName('sidebar-defendant').length > 0) {
-            document.getElementById('defendant-list-title').style.display = "block"
+         if (def.session_id === this.session) {
+            let defLink = document.createElement('a')
+            defLink.setAttribute('href', 'javascript:void(0)')
+            defLink.setAttribute('class', 'sidebar-defendant')
+            defLink.setAttribute('data-defendant', `${def.id}`)
+            defLink.innerText = ` ${def.name}`
+            defendantsContainer.appendChild(defLink)
+            if (document.getElementsByClassName('sidebar-defendant').length > 0) {
+               document.getElementById('defendant-list-title').style.display = "block"
+            }
          }
       })
    }

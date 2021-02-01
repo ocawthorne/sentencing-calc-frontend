@@ -53,4 +53,5 @@ class DefendantsAdapter {
          document.getElementById('display-sentence').innerText = defendant.sentence_len
       }
    }
+
 }

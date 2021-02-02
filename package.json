@@ -11,5 +11,8 @@
      "heroku"
    ],
    "author": "jane-doe",
-   "license": "MIT"
+   "license": "MIT",
+   "scripts": {
+      "start": "explorer.exe index.html"
+    }
  }

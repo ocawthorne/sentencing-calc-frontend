@@ -1,6 +1,7 @@
 class DefendantsAdapter {
    constructor() {
       this.baseUrl = 'http://localhost:3000/api/v1/defendants'
+      // sentencing-calculator.heroku.com/api/v1/defendants
    }
 
    async createDefendant(defendant) {

@@ -4,7 +4,6 @@ class DefendantsAdapter {
    }
 
    async createDefendant(defendant) {
-      console.log('Creating defendant...')
       const res = await fetch(this.baseUrl, {
          headers: {
             'Accepts': 'application/json',

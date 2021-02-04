@@ -4,7 +4,6 @@ class CountsAdapter {
    }
 
    async createCount(count) {
-      console.log('Creating count...')
       const res = await fetch(this.baseUrl, {
          headers: {
             'Accepts': 'application/json',

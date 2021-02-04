@@ -1,9 +1,10 @@
-class Defendants {
+class Defendant {
    constructor() {
       this.defendants = []
       this.adapter = new DefendantsAdapter()
       this.bindEventListeners()
       this.fetchAndLoadDefendants()
+      this.count = new Count()
    }
 
    bindEventListeners() {
@@ -20,24 +21,16 @@ class Defendants {
       let defendant = {
          name: document.getElementById('defendant-name').value,
          discount: document.getElementById('discount').value*1,
-         counts: [],
+         // counts: [],
          sentence_len: document.getElementById('sentence-comp').innerText,
          sentence_len_raw: Math.floor(days*(1-discount.value/100)),
-         concurrency: gordonEvaluator().pairs,
+         // concurrency: gordonEvaluator().pairs,
          session_id: session
       }
    
-      Array.from(document.getElementsByClassName('offence')).forEach(offence => {
-         let countLength = getDaysFromYMD(offence.name)
-         if (!!offence.value && countLength > 0) {
-            defendant.counts.push({
-               name: offence.value,
-               length: convertToMD(countLength, true)
-            })
-         }
-      })
-
       if (!!defendant.name) this.adapter.createDefendant(defendant).then(def => this.defendants.push(def)).then(d => this.render())
+
+      this.count.createCount()
 
       resetFields()
    }
@@ -45,6 +38,7 @@ class Defendants {
    getAndDisplayDefendant(e) {
       // let id = e.target.dataset.defendant
       this.adapter.getDefendant(e)
+      this.count.adapter.getCounts(e.target)
       // Display
       newForm.style.display = "none"
       defendantDisplay.style.display = "block"

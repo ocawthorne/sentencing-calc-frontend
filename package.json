@@ -1,16 +1,16 @@
 {
-   "name": "node-example",
-   "version": "1.0.0",
-   "description": "Sentencing Calculator",
-   "main": "web.js",
-   "scripts": {
-     "test": "echo \"Error: no test specified\" && exit 1",
-     "start": "explorer.exe index.html"
-   },
-   "keywords": [
-     "example",
-     "heroku"
-   ],
-   "author": "jane-doe",
-   "license": "MIT"
- }
+  "name": "node-example",
+  "version": "1.0.0",
+  "description": "Sentencing Calculator",
+  "main": "web.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "explorer.exe index.html"
+  },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
+  "author": "jane-doe",
+  "license": "MIT"
+}

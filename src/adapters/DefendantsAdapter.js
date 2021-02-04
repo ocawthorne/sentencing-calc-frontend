@@ -1,7 +1,6 @@
 class DefendantsAdapter {
    constructor() {
       this.baseUrl = 'http://localhost:3000/api/v1/defendants'
-      // sentencing-calculator.heroku.com/api/v1/defendants
    }
 
    async createDefendant(defendant) {
@@ -34,17 +33,7 @@ class DefendantsAdapter {
       if (defendant.session_id === session) {
          // Name
          document.getElementById('display-name').innerText = defendant.name
-         
-         //Counts
-         let countContainer = document.getElementById('display-counts')
-         if (e.srcElement.innerText.slice(1) === defendant.name) {
-            countContainer.innerHTML = ''
-            for(let k=0; k<defendant.counts.length; k++) {
-               let newLi = document.createElement('li')
-               newLi.innerHTML = `<b>Count ${k+1}:</b> ${defendant.counts[k].name} (${defendant.counts[k].sentence_len})` //FIXME Include concurrencies by modifying Rails models
-               countContainer.appendChild(newLi)
-            }
-         }
+
          // Discount
          document.getElementById('display-discount').innerText = defendant.discount
 

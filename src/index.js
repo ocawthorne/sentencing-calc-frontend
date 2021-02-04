@@ -3,10 +3,6 @@ newSession() // A session is defined before the DOM loads so that the user has a
 const app = new App()
 let days = 0
 
-app.listen(process.env.PORT || 3000, function(){
-   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
-});
-
 // This function is called without argument when randomly generated. When called with an non-undefined value, a session ID of choice is generated.
 function newSession(manual) {
    if (manual) {
@@ -17,7 +13,7 @@ function newSession(manual) {
    document.getElementById('session-id').firstChild.nodeValue = session
    document.getElementById('defendant-list').innerHTML = ''
    document.getElementById('defendant-list-title').style.display = "none"
-   new Defendants
+   new Defendant
 }
 
 // Provides warning about refreshing page. Doing this would erase the session ID.

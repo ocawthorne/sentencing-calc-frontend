@@ -162,7 +162,7 @@ function gordonEvaluator() {
    return {pairs: pairs}
 }
 
-function getDaysFromYMD(param) { // Takes in a string in the format of "count-n" where n is a natural number with a maximum of the table's dimensions.
+function getDaysFromYMD(param) { // Takes in a string in the format of "count-n" where n is a natural number with a maximum of the table dimensions.
    return document.querySelector(`.gordon-num.years.${param}`).value * 360 + document.querySelector(`.gordon-num.months.${param}`).value * 30 + document.querySelector(`.gordon-num.weeks.${param}`).value * 7 + document.querySelector(`.gordon-num.days.${param}`).value * 1
 }
 

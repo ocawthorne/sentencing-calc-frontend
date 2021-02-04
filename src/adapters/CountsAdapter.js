@@ -4,6 +4,7 @@ class CountsAdapter {
    }
 
    async createCount(count) {
+      console.log('Creating count...')
       const res = await fetch(this.baseUrl, {
          headers: {
             'Accepts': 'application/json',
@@ -22,8 +23,8 @@ class CountsAdapter {
       await (fetch(this.baseUrl)
          .then(resp => resp.json())
          .then(objArr => {
-            defendantCounts.push(objArr.filter(obj => obj.defendant_id === parseInt(id)-1))
-            selectedDefendant = defendantCounts.find(def => def.defendant_id === parseInt(e.dataset.defendant)-1)
+            defendantCounts.push(objArr.filter(obj => obj.defendant_id === parseInt(id)))
+            selectedDefendant = defendantCounts.find(def => def.defendant_id === parseInt(e.dataset.defendant))
          })
       )
 

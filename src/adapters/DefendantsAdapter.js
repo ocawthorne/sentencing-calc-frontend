@@ -1,6 +1,6 @@
 class DefendantsAdapter {
    constructor() {
-      this.baseUrl = 'http://localhost:3000/api/v1/defendants'
+      this.baseUrl = 'http://localhost:3000/api/v1/defendants/'
    }
 
    async createDefendant(defendant) {
@@ -21,27 +21,20 @@ class DefendantsAdapter {
    }
 
    async getDefendant(e) {
-      let defendant
       let id = e.srcElement.dataset.defendant // This is the ID of the entry.
-      await (fetch(this.baseUrl)
-         .then(resp => resp.json())
-         .then(objArr => {
-            defendant = objArr.find(obj => obj.id === parseInt(id))
-         })
-      )
-      
-      if (defendant.session_id === session) {
-         // Name
-         document.getElementById('display-name').innerText = defendant.name
+      let res = await (fetch(`${this.baseUrl}${id}`))
+      let defendant = await res.json()
 
-         // Discount
-         document.getElementById('display-discount').innerText = defendant.discount
+      // Name
+      document.getElementById('display-name').innerText = defendant.name
 
-         // FIXME Concurrency
+      // Discount
+      document.getElementById('display-discount').innerText = defendant.discount
 
-         // Total Sentence
-         document.getElementById('display-sentence').innerText = defendant.sentence_len
-      }
+      // FIXME Concurrency
+
+      // Total Sentence
+      document.getElementById('display-sentence').innerText = defendant.sentence_len
    }
 
 }
